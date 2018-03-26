@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{5d0aea76-088e-4b4d-adf0-227ec672f1c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{d145fc8b-4b8f-414b-87cc-d5a0dda27e3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CES">
+      <UniqueIdentifier>{09175497-4bff-40ba-82f8-4f177b9db722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\World">
+      <UniqueIdentifier>{57b69981-18aa-438d-b386-0ad9ce7b390e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Game\Game.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\EventHandler.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\GameWindow.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Image.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\InputManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Renderer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Vector.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Vector2f.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CES\Scene.h">
+      <Filter>Game\CES</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CES\Components.h">
+      <Filter>Game\CES</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\World.h">
+      <Filter>Game\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CES\CES.h" />
+    <ClInclude Include="Source\CES\SystemsRelated\BulletPatterns.h" />
+    <ClInclude Include="Source\CES\SystemsRelated\Systems.h">
+      <Filter>Game\CES</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Game\Game.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\EventHandler.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\GameWindow.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Image.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\InputManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Renderer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Timer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CES\Scene.cpp">
+      <Filter>Game\CES</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\World.cpp">
+      <Filter>Game\World</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

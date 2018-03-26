@@ -1,0 +1,13 @@
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\Entity.cpp", line 57: error: class "Game" has
+          no member "GetCollision"
+          Game::GetCollision()->AddCollisionItem(this);
+                ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\Entity.cpp", line 61: error: class "Game" has
+          no member "GetCollision"
+          Game::GetCollision()->RemoveCollisionItem(this);
+                ^
+
+2 errors detected in the compilation of "C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd18e75\code\GameProject\Entity.cpp".

@@ -1,0 +1,7 @@
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\Avatar.cpp", line 62: error: class "Game" has
+          no member "GetProjectiles"
+      Game::GetProjectiles()->CreateProjectile(Projectile::e9MM, myPos, dir, this);
+            ^
+
+1 error detected in the compilation of "C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd18e75\code\GameProject\Avatar.cpp".

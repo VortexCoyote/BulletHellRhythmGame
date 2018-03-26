@@ -1,0 +1,37 @@
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\CollisionManager.cpp", line 29: error:
+          identifier "Vector2f" is undefined
+      Vector2f position1 = anItem.GetPosition();
+      ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\CollisionManager.cpp", line 29: error:
+          incomplete type is not allowed
+      Vector2f position1 = anItem.GetPosition();
+                           ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\CollisionManager.cpp", line 30: error:
+          identifier "Vector2f" is undefined
+      Vector2f position2 = anotherItem.GetPosition();
+      ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\CollisionManager.cpp", line 30: error:
+          incomplete type is not allowed
+      Vector2f position2 = anotherItem.GetPosition();
+                           ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\CollisionManager.cpp", line 31: error:
+          incomplete type is not allowed
+      if ( (position2 - position1).Length() < anItem.GetCollisionRadius() + anotherItem.GetCollisionRadius() )
+                                              ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\CollisionManager.cpp", line 31: error:
+          incomplete type is not allowed
+      if ( (position2 - position1).Length() < anItem.GetCollisionRadius() + anotherItem.GetCollisionRadius() )
+                                                                            ^
+
+6 errors detected in the compilation of "C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd18e75\code\GameProject\CollisionManager.cpp".

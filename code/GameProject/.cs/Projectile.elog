@@ -1,0 +1,13 @@
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\Projectile.cpp", line 12: error: class "Game"
+          has no member "GetProjectiles"
+  ,myProjectileManager(Game::GetProjectiles())
+                             ^
+
+"C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd1
+          8e75\code\GameProject\Projectile.cpp", line 49: error: pointer to
+          incomplete class type is not allowed
+      if (myProjectileManager->GetCollidedEntity(this, returnEntity))
+          ^
+
+2 errors detected in the compilation of "C:\Users\Vortex\Documents\GitHub\InternshipBaseProject\dali76-lbspriv-0f526dd18e75\code\GameProject\Projectile.cpp".
