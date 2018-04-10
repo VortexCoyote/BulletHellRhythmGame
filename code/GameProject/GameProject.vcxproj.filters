@@ -52,10 +52,10 @@
       <Filter>Game\World</Filter>
     </ClInclude>
     <ClInclude Include="Source\CES\CES.h" />
-    <ClInclude Include="Source\CES\SystemsRelated\BulletPatterns.h" />
-    <ClInclude Include="Source\CES\SystemsRelated\Systems.h">
+    <ClInclude Include="Source\CES\Systems.h">
       <Filter>Game\CES</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Assets.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Game\Game.cpp">

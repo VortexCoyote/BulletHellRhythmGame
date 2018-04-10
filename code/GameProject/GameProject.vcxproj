@@ -126,7 +126,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\CES\SystemsRelated\BulletPatterns.h" />
     <ClInclude Include="Source\CES\CES.h" />
     <ClInclude Include="Source\CES\Components.h" />
     <ClInclude Include="Source\Core\EventHandler.h" />
@@ -136,10 +135,11 @@
     <ClInclude Include="Source\Core\InputManager.h" />
     <ClInclude Include="Source\Core\Renderer.h" />
     <ClInclude Include="Source\CES\Scene.h" />
-    <ClInclude Include="Source\CES\SystemsRelated\Systems.h" />
+    <ClInclude Include="Source\CES\Systems.h" />
     <ClInclude Include="Source\Core\Timer.h" />
     <ClInclude Include="Source\Core\Vector.h" />
     <ClInclude Include="Source\Core\Vector2f.h" />
+    <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <ItemGroup>
