@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Core\Math.h" />
     <ClInclude Include="Source\CES\CES.h" />
     <ClInclude Include="Source\CES\Components.h" />
     <ClInclude Include="Source\Core\EventHandler.h" />

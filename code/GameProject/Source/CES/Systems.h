@@ -11,7 +11,7 @@ namespace Entity
 {
 	using namespace Component;
 
-	int CreateBullet(Scene& pScene, Component::Position& pPosition, float pAngle, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage)
+	int CreateBullet(Scene& pScene, Component::Position& pPosition, float pAngle, float pSpeed, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage)
 	{
 		int bullet = pScene.RegisterEntity(
 			pScene.GetMask<Position>() |
@@ -26,13 +26,14 @@ namespace Entity
 
 		pScene.GetComponent<Position>(bullet) = pPosition;
 
-		velocity.x = 0;
-		velocity.y = 0;
+		velocity.x = cos(pAngle)*pSpeed;
+		velocity.y = sin(pAngle)*pSpeed;
 
 		pScene.GetComponent<Sprite>(bullet).image = pImage;
 
 		bulletMovement.PatternFunction = pBulletPattern;
 		bulletMovement.angle = pAngle;
+		bulletMovement.speed = pSpeed;
 		bulletMovement.time = 0.0;
 
 		collision.outsideScreen = false;
@@ -42,7 +43,7 @@ namespace Entity
 	}
 	
 	int CreateEmitter(Scene& pScene, Component::Position& pPosition, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage, 
-	float pTimer, float pInterval, float pAngle, float pAngleStep, int pCount)
+	float pTimer, float pInterval, float pAngle, float pSpeed, float pAngleStep, int pCount)
 	{
 		int emitter = pScene.RegisterEntity(
 					  pScene.GetMask<Position>() |
@@ -61,6 +62,8 @@ namespace Entity
 
 		emitterComponent.angle = pAngle;
 		emitterComponent.angleStep = pAngleStep;
+
+		emitterComponent.speed = pSpeed;
 
 		emitterComponent.count = pCount;
 		emitterComponent.PatternFunction = pBulletPattern;
@@ -90,7 +93,7 @@ namespace System
 			{
 				emitter.angle += emitter.angleStep;
 				
-				Entity::CreateBullet(scene, position, emitter.angle, emitter.PatternFunction, scene.GetComponent<Sprite>(entity).image);
+				Entity::CreateBullet(scene, position, emitter.angle, emitter.speed, emitter.PatternFunction, scene.GetComponent<Sprite>(entity).image);
 			}
 			
 			if (emitter.timer <= 0) scene.DestroyEntity(entity);
@@ -111,14 +114,15 @@ namespace System
 			Collision& collision = scene.GetComponent<Collision>(entity);
 
 			bulletMovement.PatternFunction(velocity,
-				bulletMovement.time,
-				deltaTime,
-				bulletMovement.angle);
+						   bulletMovement.time,
+						   deltaTime,
+						   bulletMovement.angle, 
+						   bulletMovement.speed);
 
 			if (position.x > 1024) collision.outsideScreen = true;
-			if (position.x < -16) collision.outsideScreen = true;
-			if (position.y > 768) collision.outsideScreen = true;
-			if (position.y < -16) collision.outsideScreen = true;
+			if (position.x <  -16) collision.outsideScreen = true;
+			if (position.y >  768) collision.outsideScreen = true;
+			if (position.y <  -16) collision.outsideScreen = true;
 
 			bulletMovement.time += deltaTime;
 		}

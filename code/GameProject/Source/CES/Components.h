@@ -2,6 +2,7 @@
 #define HEADER_COMPOENNTS
 
 #include "..\Core\Image.h"
+#include "..\Core\Math.h"
 
 namespace Component
 {
@@ -21,10 +22,12 @@ namespace Component
 	};
 	struct BulletMovement
 	{
-		float time = 0.0;
-		float angle = 0.0;
+		float time;
+		float angle;
 
-		void(*PatternFunction)(Velocity& velocity, const float time, const float deltaTime, float& angle);
+		float speed;
+
+		void(*PatternFunction)(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed);
 	};
 	struct Collision
 	{
@@ -39,30 +42,50 @@ namespace Component
 		float angle;
 		float angleStep;
 		
+		float speed;
+
 		int count;
 
-		void(*PatternFunction)(Velocity& velocity, const float time, const float deltaTime, float& angle);
+		void(*PatternFunction)(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed);
 	};
 }
+
 
 namespace BulletPattern
 {
 	using namespace Component;
 
-	typedef void(*bulletPatternPtr)(Velocity& velocity, const float time, const float deltaTime, float& angle);
 
-	void Default(Velocity& velocity, const float time, const float deltaTime, float& angle)
+	typedef void(*bulletPatternPtr)(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed);
+
+	void Default(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed)
 	{
-		velocity.x += cosf(angle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
-		velocity.y += sinf(angle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
+		pVelocity.x += cosf(pAngle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
+		pVelocity.y += sinf(pAngle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
 	}
 
-	void Spiral(Velocity& velocity, const float time, const float deltaTime, float& angle)
+	void Accelerated(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed)
 	{
-		angle += 3.14159265358*0.0025; //deltaTime*1.5;
+		pSpeed += 0.01;
 
-		velocity.x += cosf(angle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
-		velocity.y += sinf(angle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
+		pVelocity.x = cosf(pAngle)*pSpeed;
+		pVelocity.y = sinf(pAngle)*pSpeed;
+	}
+
+	void Lerped(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed)
+	{
+		pSpeed = Math::Lerp(pSpeed, 2.0f, 0.1f);
+
+		pVelocity.x = cosf(pAngle)*pSpeed;
+		pVelocity.y = sinf(pAngle)*pSpeed;
+	}
+
+	void Spiral(Velocity& pVelocity, const float pTime, const float pDeltaTime, float& pAngle, float& pSpeed)
+	{
+		pAngle += 3.14159265358*0.0025; //deltaTime*1.5;
+
+		pVelocity.x += cosf(pAngle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
+		pVelocity.y += sinf(pAngle)*0.01;// (abs(cosf(time*2.0) + 0.2) * 2);
 	}
 }
 

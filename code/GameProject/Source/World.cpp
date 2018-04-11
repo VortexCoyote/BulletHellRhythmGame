@@ -41,8 +41,8 @@ void World::Update()
 		position.x = 1024 / 2 + cos(Song::TIME) * 256;
 		position.y = 768  / 2 + sin(Song::TIME) * 256;
 
-		Entity::CreateEmitter(scene, position, BulletPattern::Default, Textures::BULLET_SPRITE, 
-		1, 1, 0, 3.14159265358 * 2 / 32, 64);
+		Entity::CreateEmitter(scene, position, BulletPattern::Lerped, Textures::BULLET_SPRITE, 
+		1, 1, 0, 12, 3.14159265358 * 2 / 32, 64);
 
 		Song::COUNTER = 0;
 	}
