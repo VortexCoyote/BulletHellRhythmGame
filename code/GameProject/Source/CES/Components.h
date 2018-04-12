@@ -50,7 +50,6 @@ namespace Component
 	};
 }
 
-
 namespace BulletPattern
 {
 	using namespace Component;

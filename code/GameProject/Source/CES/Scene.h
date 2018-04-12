@@ -20,21 +20,21 @@ typedef unsigned int Hash;
 class Scene
 {
 
-	int m_maxEntities;
-	int m_currentEntities = 0;
-	int* m_mask;
+	int mMaxEntities;
+	int mCurrentEntities = 0;
+	int* mMask;
 
-	int m_componentCount;
-	void** m_componentData;
-	std::map<Hash, int> m_componentIndex;
+	int mComponentCount;
+	void** mComponentData;
+	std::map<Hash, int> mComponentIndex;
 
-	SystemPtr m_updateSystems[64];
-	SystemPtr m_drawSystems  [32];
+	SystemPtr mUpdateSystems[64];
+	SystemPtr mDrawSystems  [32];
 	
-	int m_updateSystemCount = 0;
-	int m_drawSystemCount   = 0;
+	int mUpdateSystemCount = 0;
+	int mDrawSystemCount   = 0;
 
-	uint m_CreateEntity();
+	uint mCreateEntity();
 
 public:
 	
@@ -70,23 +70,23 @@ public:
 template<typename T>
 inline void Scene::SubmitComponent()
 {
-	m_componentData[m_componentCount] = new T[m_maxEntities];
+	mComponentData[mComponentCount] = new T[mMaxEntities];
 
-	m_componentIndex[typeid(T).hash_code()] = m_componentCount;
+	mComponentIndex[typeid(T).hash_code()] = mComponentCount;
 
-	++m_componentCount;
+	++mComponentCount;
 }
 
 template<typename T>
-inline T& Scene::GetComponent(int entity)
+inline T& Scene::GetComponent(int pEntity)
 {
-	return ( (T*)m_componentData[m_componentIndex[typeid(T).hash_code()]] )[entity];
+	return ( (T*)mComponentData[mComponentIndex[typeid(T).hash_code()]] )[pEntity];
 }
 
 template<typename T>
 inline Mask Scene::GetMask()
 {
-	return 1 << m_componentIndex[typeid(T).hash_code()];
+	return 1 << mComponentIndex[typeid(T).hash_code()];
 }
 
 #endif

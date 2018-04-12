@@ -1,1 +1,1 @@
-#1 C:\Users\Vortex\Documents\GitHub\BulletHellRhythmGame\code\GameProject\Source\CES\Scene.cpp(79,9,79,21,12): Incorrect casting : 'this->m_mask[index]' is casting from 'signed' to 'unsigned int' implicitly
+#1 C:\Users\Vortex\Documents\GitHub\BulletHellRhythmGame\code\GameProject\Source\CES\Scene.cpp(79,9,79,20,12): Incorrect casting : 'this->mMask[index]' is casting from 'signed' to 'unsigned int' implicitly

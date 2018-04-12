@@ -1,41 +1,41 @@
 #include "Scene.h"
 
 Scene::Scene( int entityAmount)
-	:m_maxEntities( entityAmount)
+	:mMaxEntities( entityAmount)
 {	
-	m_componentData = new void*[32];
-	m_mask = new int[m_maxEntities];
+	mComponentData = new void*[32];
+	mMask = new int[mMaxEntities];
 
-	for (int i = 0; i < m_maxEntities; ++i)
+	for (int i = 0; i < mMaxEntities; ++i)
 	{
-		m_mask[i] = NULL;
+		mMask[i] = NULL;
 	}
 }
 Scene::~Scene()
 {	
-	delete[] m_mask;
-	delete[] m_componentData;
+	delete[] mMask;
+	delete[] mComponentData;
 }
 
 
 void Scene::SubmitUpdateSystem(SystemPtr system)
 {
-	m_updateSystems[m_updateSystemCount] = system;
-	++m_updateSystemCount;
+	mUpdateSystems[mUpdateSystemCount] = system;
+	++mUpdateSystemCount;
 }
 void Scene::SubmitDrawSystem(SystemPtr system)
 {
-	m_drawSystems[m_drawSystemCount] = system;
-	++m_drawSystemCount;
+	mDrawSystems[mDrawSystemCount] = system;
+	++mDrawSystemCount;
 }
 
 
-uint Scene::m_CreateEntity()
+uint Scene::mCreateEntity()
 {
 	unsigned int entity;
-	for (entity = 0; entity < m_maxEntities; ++entity)
+	for (entity = 0; entity < mMaxEntities; ++entity)
 	{
-		if (m_mask[entity] == NULL)
+		if (mMask[entity] == NULL)
 		{
 			return(entity);
 		}
@@ -43,59 +43,59 @@ uint Scene::m_CreateEntity()
 
 	printf("Error!  No more entities left!\n");
 
-	return(m_maxEntities);
+	return(mMaxEntities);
 }
 uint Scene::DestroyEntity(int entity)
 {
-	if (m_mask[entity])
+	if (mMask[entity])
 	{
-		--m_currentEntities;
-		m_mask[entity] = NULL;
+		--mCurrentEntities;
+		mMask[entity] = NULL;
 	}
 
 	return 0;
 }
 uint Scene::RegisterEntity(int entityMask)
 {
-	++m_currentEntities;
+	++mCurrentEntities;
 
-	uint entity = m_CreateEntity();
+	uint entity = mCreateEntity();
 
-	m_mask[entity] = entityMask;
+	mMask[entity] = entityMask;
 
 	return entity;
 }
 
 uint Scene::GetMaxEntities()
 {
-	return m_maxEntities;
+	return mMaxEntities;
 }
 uint Scene::GetCurrentEntities()
 {
-	return m_currentEntities;
+	return mCurrentEntities;
 }
 uint Scene::GetEntityMask(int index)
 {
-	return m_mask[index];
+	return mMask[index];
 }
 
 void Scene::Update(float deltaTime)
 {
-	for (int entity = 0; entity < m_maxEntities; ++entity)
+	for (int entity = 0; entity < mMaxEntities; ++entity)
 	{
-		for (int system = 0; system < m_updateSystemCount; ++system)
+		for (int system = 0; system < mUpdateSystemCount; ++system)
 		{
-			m_updateSystems[system](*this, entity, deltaTime);
+			mUpdateSystems[system](*this, entity, deltaTime);
 		}
 	}
 }
 void Scene::Draw(float deltaTime)
 {
-	for (int entity = 0; entity < m_maxEntities; ++entity)
+	for (int entity = 0; entity < mMaxEntities; ++entity)
 	{
-		for (int system = 0; system < m_drawSystemCount; ++system)
+		for (int system = 0; system < mDrawSystemCount; ++system)
 		{
-			m_drawSystems[system](*this, entity, deltaTime);
+			mDrawSystems[system](*this, entity, deltaTime);
 		}
 	}
 }
