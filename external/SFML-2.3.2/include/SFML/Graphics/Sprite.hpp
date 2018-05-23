@@ -52,7 +52,7 @@ public:
     /// \brief Default constructor
     ///
     /// Creates an empty sprite with no source texture.
-    ///
+    /// 
     ////////////////////////////////////////////////////////////
     Sprite();
 

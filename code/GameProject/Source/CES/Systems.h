@@ -87,16 +87,22 @@ namespace System
 			Emitter& emitter = scene.GetComponent<Emitter>(entity);
 			Position& position = scene.GetComponent<Position>(entity);
 			
-			emitter.timer -= emitter.interval;
+			//emitter.timer -= emitter.interval;
+			emitter.timer -= deltaTime*1000;
 
-			for (int i = 0; i < emitter.count; ++i)
+			if (emitter.timer <= 0)
 			{
-				emitter.angle += emitter.angleStep;
+				for (int i = 0; i < emitter.count; ++i)
+				{
+					emitter.angle += emitter.angleStep;
 				
-				Entity::CreateBullet(scene, position, emitter.angle, emitter.speed, emitter.PatternFunction, scene.GetComponent<Sprite>(entity).image);
+					Entity::CreateBullet(scene, position, emitter.angle, emitter.speed, emitter.PatternFunction, scene.GetComponent<Sprite>(entity).image);
+				}
+
+				scene.DestroyEntity(entity);
 			}
 			
-			if (emitter.timer <= 0) scene.DestroyEntity(entity);
+			//if (emitter.timer <= 0) scene.DestroyEntity(entity);
 		}
 	}
 	SYSTEM(BulletPhysics)

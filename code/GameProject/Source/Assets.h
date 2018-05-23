@@ -2,6 +2,7 @@
 #define HEADER_ASSETS
 
 #include "Core\Image.h"
+#include <SFML\Audio\Music.hpp>
 
 namespace Textures
 {
@@ -10,6 +11,8 @@ namespace Textures
 
 namespace Song
 {
+	static sf::Music MUSIC;
+
 	static float TIME = 0;
 	static float COUNTER = 0;
 }
