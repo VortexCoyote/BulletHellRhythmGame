@@ -4,6 +4,8 @@
 #include "..\Core\Image.h"
 #include "..\Core\Math.h"
 
+#include <string>
+
 namespace Component
 {
 	struct Position

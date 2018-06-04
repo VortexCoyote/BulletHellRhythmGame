@@ -11,7 +11,7 @@ namespace Entity
 {
 	using namespace Component;
 
-	int CreateBullet(Scene& pScene, Component::Position& pPosition, float pAngle, float pSpeed, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage)
+	int CreateBullet(Scene& pScene, Position& pPosition, float pAngle, float pSpeed, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage)
 	{
 		int bullet = pScene.RegisterEntity(
 			pScene.GetMask<Position>() |
@@ -20,9 +20,9 @@ namespace Entity
 			pScene.GetMask<BulletMovement>() |
 			pScene.GetMask<Collision>());
 
-		Component::BulletMovement& bulletMovement = pScene.GetComponent<BulletMovement>(bullet);
-		Component::Velocity& velocity = pScene.GetComponent<Velocity>(bullet);
-		Component::Collision& collision = pScene.GetComponent<Collision>(bullet);
+		BulletMovement& bulletMovement = pScene.GetComponent<BulletMovement>(bullet);
+		Velocity& velocity = pScene.GetComponent<Velocity>(bullet);
+		Collision& collision = pScene.GetComponent<Collision>(bullet);
 
 		pScene.GetComponent<Position>(bullet) = pPosition;
 
@@ -42,7 +42,7 @@ namespace Entity
 		return bullet;
 	}
 	
-	int CreateEmitter(Scene& pScene, Component::Position& pPosition, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage, 
+	int CreateEmitter(Scene& pScene, Position& pPosition, BulletPattern::bulletPatternPtr pBulletPattern, Image* pImage, 
 	float pTimer, float pInterval, float pAngle, float pSpeed, float pAngleStep, int pCount)
 	{
 		int emitter = pScene.RegisterEntity(
@@ -51,9 +51,9 @@ namespace Entity
 					  pScene.GetMask<Emitter>());
 		
 		pScene.GetComponent<Position>(emitter) = pPosition;
-		Component::BulletMovement& bulletMovement = pScene.GetComponent<BulletMovement>(emitter);
+		BulletMovement& bulletMovement = pScene.GetComponent<BulletMovement>(emitter);
 
-		Component::Emitter& emitterComponent = pScene.GetComponent<Emitter>(emitter);
+		Emitter& emitterComponent = pScene.GetComponent<Emitter>(emitter);
 		
 		pScene.GetComponent<Sprite>(emitter).image = pImage;
 
@@ -70,12 +70,27 @@ namespace Entity
 		
 		return emitter;
 	}
+	
+	int CreatePlayer(Scene& pScene, Position& pPosition, Velocity& pVelocity, Image* pImage)
+	{
+		int player = pScene.RegisterEntity(
+					 pScene.GetMask<Position>() |
+					 pScene.GetMask<Velocity>() |
+					 pScene.GetMask<Sprite >()) ;
+
+		pScene.GetComponent<Position>(player) = pPosition;
+		pScene.GetComponent<Velocity>(player) = pVelocity;
+		pScene.GetComponent<Sprite>(player).image = pImage;
+
+		return player;
+	}
 }
 
 namespace System
 {
 	using namespace Component;
 
+	//UPDATE
 	SYSTEM(Emitters)
 	{
 		Mask mask = scene.GetMask<Position>()|
@@ -96,7 +111,7 @@ namespace System
 				{
 					emitter.angle += emitter.angleStep;
 				
-					Entity::CreateBullet(scene, position, emitter.angle, emitter.speed, emitter.PatternFunction, scene.GetComponent<Sprite>(entity).image);
+					Entity::CreateBullet(scene, position, emitter.angle, emitter.speed, emitter.PatternFunction, Textures::BULLET_SPRITE);
 				}
 
 				scene.DestroyEntity(entity);

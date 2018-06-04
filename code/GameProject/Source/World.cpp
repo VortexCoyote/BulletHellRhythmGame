@@ -2,6 +2,10 @@
 #include "Core\Image.h"
 #include "Core\Timer.h"
 
+#include "Windows.h"
+#include <chrono>
+#include <thread>
+
 #include <map>
 #include <fstream>
 #include <sstream>
@@ -10,35 +14,34 @@
 #include "CES\CES.h"
 #include "CES\Systems.h"
 
-Scene scene = Scene(8192);
+Scene mScene = Scene(8192);
+int mPlayer;
 
 void World::Create()
 {
-	scene.SubmitComponent<Component::Position>();
-	scene.SubmitComponent<Component::Velocity>();
-	scene.SubmitComponent<Component::Sprite>();
-	scene.SubmitComponent<Component::BulletMovement>();
-	scene.SubmitComponent<Component::Collision>();
-	scene.SubmitComponent<Component::Emitter>();
+	mScene.SubmitComponent<Component::Position>();
+	mScene.SubmitComponent<Component::Velocity>();
+	mScene.SubmitComponent<Component::Sprite>();
+	mScene.SubmitComponent<Component::BulletMovement>();
+	mScene.SubmitComponent<Component::Collision>();
+	mScene.SubmitComponent<Component::Emitter>();
 	
-	scene.SubmitUpdateSystem(System::Emitters);
-	scene.SubmitUpdateSystem(System::BulletPhysics);
-	scene.SubmitUpdateSystem(System::UpdatePosition);
-	scene.SubmitUpdateSystem(System::CollisionResponse);
+	mScene.SubmitUpdateSystem(System::Emitters);
+	mScene.SubmitUpdateSystem(System::BulletPhysics);
+	mScene.SubmitUpdateSystem(System::UpdatePosition);
+	mScene.SubmitUpdateSystem(System::CollisionResponse);
 
-	scene.SubmitDrawSystem(System::DrawSprite);
+	mScene.SubmitDrawSystem(System::DrawSprite);
 
-
-	if (!Song::MUSIC.openFromFile("ebony ivory.ogg")) std::cout << "SHIT DOESNT WORK" << std::endl; // error
-	Song::MUSIC.play();
 
 	std::ifstream chart;
-	chart.open("ebony ivory.brf", std::ifstream::in);
+	chart.open("brain power.brf", std::ifstream::in);
 	
 	std::string line;
 
 	int parameter = 0;
 
+	//Parse the file format
 	if (chart.is_open())
 	{
 		while (std::getline(chart, line, ';'))
@@ -46,31 +49,55 @@ void World::Create()
 			std::stringstream linestream(line);
 			std::string value;
 
-			int values[7];
+			int values[8];
+
 
 			while (std::getline(linestream, value, ','))
 			{
-				//TIME,X,Y,ANGLE,ANGLESTEP,SPEED,COUNT
-				//0	   1 2 3     4         5     6
+				//TIME,X,Y,ANGLE,SPEED,COUNT
+				//0	   1 2 3     4     5
 
 				values[parameter] = std::stoi(value);
 
 				++parameter;
 			}
-
+			
 			Component::Position position;
-			position.x = values[1]*168;
-			position.y = values[2]*100;
+			position.x = values[1]*96;
+			position.y = values[2]*86;
 
-			Entity::CreateEmitter(scene, position, BulletPattern::Lerped, Textures::BULLET_SPRITE,
-			values[0]+1000, 0, values[3], values[5], values[4]*(3.14159265358/180), values[6]);
 
-			parameter = 0;
+			Entity::CreateEmitter(mScene, position, BulletPattern::Lerped, Textures::BLANK_SPRITE,
+			values[0]+900, 0, values[3]*(3.14159265358 / 180), values[4], (2.0*3.14159265358)/values[5], values[5]);
 
+			parameter = 0;	
 		}
 	}
 	else std::cout << "Shit doesn't work sorry" << std::endl;
+	
+	if (!Song::MUSIC.openFromFile("brain power.ogg")) std::cout << "SHIT DOESNT WORK" << std::endl; // error
+
+
+	//Set Up Rendertexture for collision
+	if (!Textures::COLLISION_TEXTURE->create(1024, 768))
+		std::cout << "surfaces am I right??" << std::endl;
+
+	
+	//Create Player
+	Component::Position playerPosition;
+
+	playerPosition.x = 96*3 - 16;
+	playerPosition.y = 700;
+
+	Component::Velocity playerVelocity;
+
+	playerVelocity.x = 0;
+	playerVelocity.y = 0;
+
+	mPlayer = Entity::CreatePlayer(mScene, playerPosition, playerVelocity, Textures::PLAYER_SPRITE);
 }
+
+
 
 void World::Destroy()
 {
@@ -79,12 +106,33 @@ void World::Destroy()
 
 void World::Update()
 {
-	std::cout << "FPS: " << 1/Timer::GetElapsedFrameTime() << std::endl;
+	//std::cout << "FPS: " << 1/Timer::GetElapsedFrameTime() << std::endl;
 	
-	scene.Update(Timer::GetElapsedFrameTime());
+	if (Song::PLAYING == false) 
+	{
+		Song::MUSIC.play();
+		Song::PLAYING = true;
+	}
+
+	sf::Keyboard input;
+
+	//Player Update
+	float speed = 3.5;
+	if (input.isKeyPressed(input.LShift)) speed = 1.5;
+
+	Component::Position& position = mScene.GetComponent<Component::Position>(mPlayer);
+
+	position.x += (input.isKeyPressed(input.Right) - input.isKeyPressed(input.Left))*speed;
+	position.y += (input.isKeyPressed(input.Down) - input.isKeyPressed(input.Up))*speed;
+	
+	mScene.Update(Timer::GetElapsedFrameTime());
 }
 
 void World::Draw()
 {
-	scene.Draw(Timer::GetElapsedFrameTime());
+	mScene.Draw(Timer::GetElapsedFrameTime());
+
+	//GUI
+	Textures::GUI_SPRITE->SetPosition(6 * 96 + 16, 0);
+	Game::GetRenderer()->Draw(Textures::GUI_SPRITE);
 }

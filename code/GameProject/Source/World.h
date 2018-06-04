@@ -15,10 +15,6 @@ public:
 
 private:
 	
-	Image* m_backGround;
-	Image* m_bulletSprite;
-
-	int m_player;
 };
 
 #endif

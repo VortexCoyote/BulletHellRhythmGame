@@ -13,11 +13,11 @@ public:
 
 	void Prepare();
     void Render();
-    void Draw(Image* image);
+    void Draw(Image* pImage);
 
 private:
 
-	sf::RenderWindow* mySFMLWindow;
+	sf::RenderWindow* mSFMLWindow;
 };
 
 #endif

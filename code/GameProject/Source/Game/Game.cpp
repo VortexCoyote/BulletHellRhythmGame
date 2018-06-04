@@ -2,16 +2,16 @@
 //#include "Renderer.h"
 #include "..\Core\Timer.h"
 
-Game* Game::ourGame = nullptr;
+Game* Game::sGame = nullptr;
 
 bool Game::Create()
 {
-    if (ourGame == nullptr)
+    if (sGame == nullptr)
     {
-        ourGame = new Game();
-        if (!ourGame->Init())
+		sGame = new Game();
+        if (!sGame->Init())
         {
-            delete ourGame;
+            delete sGame;
             return false;
         }
     }
@@ -20,15 +20,15 @@ bool Game::Create()
 
 Game* Game::GetInstance()
 {
-    return ourGame;
+    return sGame;
 }
 
 void Game::Destroy()
 {
-    if (ourGame)
+    if (sGame)
     {
-        ourGame->Shutdown();
-        delete ourGame;
+		sGame->Shutdown();
+        delete sGame;
     }
 }
 
@@ -44,47 +44,47 @@ Game::~Game()
 
 bool Game::Init()
 {
-    myRenderer.Init();
-    myInputManager.Init();
-    myEventHandler.Init();
+    mRenderer.Init();
+    mInputManager.Init();
+    mEventHandler.Init();
 
     return true;
 }
 
 bool Game::Run()
 {
-    myRunning = true;
+    mRunning = true;
 
-    myWorld.Create();
+    mWorld.Create();
 
-    while (myRunning)
+    while (mRunning)
     {
         Update();
         Render();
     }
 
-    myWorld.Destroy();
+    mWorld.Destroy();
 
     return true;
 }
 
 void Game::Render()
 {
-	myRenderer.Prepare();
+	mRenderer.Prepare();
 
-    myWorld.Draw();
+    mWorld.Draw();
 
-    myRenderer.Render();
+    mRenderer.Render();
 }
 
 void Game::Stop()
 {
-    myRunning = false;
+    mRunning = false;
 }
 
 bool Game::Shutdown()
 {
-    myRenderer.Shutdown();
+    mRenderer.Shutdown();
     return true;
 }
 
@@ -92,20 +92,20 @@ void Game::Update()
 {
     Timer::Update();
 
-	myEventHandler.HandleEvents();
+	mEventHandler.HandleEvents();
 
-    myInputManager.Update();
+    mInputManager.Update();
 
-    myWorld.Update();
+    mWorld.Update();
 }
 
 
 // Static getters
 GameWindow* Game::GetGameWindow()
 {
-	if (ourGame)
+	if (sGame)
 	{
-		return &ourGame->myGameWindow;
+		return &sGame->mGameWindow;
 	}
 
 	return nullptr;
@@ -113,9 +113,9 @@ GameWindow* Game::GetGameWindow()
 
 Renderer* Game::GetRenderer()
 {
-    if (ourGame)
+    if (sGame)
     {
-        return &ourGame->myRenderer;
+        return &sGame->mRenderer;
     } 
 
     return nullptr;
@@ -123,9 +123,9 @@ Renderer* Game::GetRenderer()
 
 InputManager* Game::GetInput()
 {
-    if (ourGame)
+    if (sGame)
     {
-        return &ourGame->myInputManager;
+        return &sGame->mInputManager;
     } 
 
     return nullptr;
@@ -133,9 +133,9 @@ InputManager* Game::GetInput()
 
 World* Game::GetWorld()
 {
-    if (ourGame)
+    if (sGame)
     {
-        return &ourGame->myWorld;
+        return &sGame->mWorld;
     } 
 
     return nullptr;

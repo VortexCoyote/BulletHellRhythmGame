@@ -89,6 +89,7 @@ void Scene::Update(float deltaTime)
 		}
 	}
 }
+
 void Scene::Draw(float deltaTime)
 {
 	for (int entity = 0; entity < mMaxEntities; ++entity)

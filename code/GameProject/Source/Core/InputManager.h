@@ -28,17 +28,17 @@ public:
 
     void Update();
 
-    bool IsButtonDown(Button button);
-    bool WasButtonPressed(Button button);
-    void GetCursorPosition(float& X, float& Y);
+    bool IsButtonDown(Button pButton);
+    bool WasButtonPressed(Button pButton);
+    void GetCursorPosition(float& pX, float& pY);
 
 private:
 	void UpdateButtonStates();
 	void UpdateCursorPosition();
 
-    ButtonState myButtons[eTOTAL_SIZE];
+    ButtonState mButtons[eTOTAL_SIZE];
 
-    Vector2f myCursorPos;
+    Vector2f mCursorPos;
 };
 
 #endif

@@ -1,46 +1,46 @@
 #include "Image.h"
 #include "Vector2f.h"
 
-Image::Image(const char* path, int xOffset, int yOffset, int width, int height)
-	: myName(path)
+Image::Image(const char* pPath, int pXOffset, int pYOffset, int pWidth, int pHeight)
+	: mName(pPath)
 {
-	CreateSprite(path, xOffset, yOffset, width, height);
+	CreateSprite(pPath, pXOffset, pYOffset, pWidth, pHeight);
 }
 
 Image::~Image()
 {
 }
 
-bool Image::CreateSprite(const char* path, int xOffset, int yOffset, int width, int height)
+bool Image::CreateSprite(const char* pPath, int pXOffset, int pYOffset, int pWidth, int pHeight)
 {
 	sf::IntRect rect;
 
-	if (width > 0 && height > 0)
+	if (pWidth > 0 && pHeight > 0)
 	{
-		rect.left = xOffset;
-		rect.top = yOffset;
-		rect.width = width;
-		rect.height = height;
+		rect.left = pXOffset;
+		rect.top = pYOffset;
+		rect.width = pWidth;
+		rect.height = pHeight;
 	}
 
-	bool success = myTexture.loadFromFile(path, rect);
+	bool success = mTexture.loadFromFile(pPath, rect);
 
-	mySprite.setTexture(myTexture);
+	mSprite.setTexture(mTexture);
 
 	return success;
 }
 
 sf::Sprite& Image::GetSprite()
 {
-	return mySprite;
+	return mSprite;
 }
 
-void Image::SetPosition(const Vector2f& aPosition)
+void Image::SetPosition(const Vector2f& pPosition)
 {
-	mySprite.setPosition(sf::Vector2f(aPosition.x, aPosition.y));
+	mSprite.setPosition(sf::Vector2f(pPosition.x, pPosition.y));
 }
 
-void Image::SetPosition(float x, float y)
+void Image::SetPosition(float pX, float pY)
 {
-	mySprite.setPosition(sf::Vector2f(x, y));
+	mSprite.setPosition(sf::Vector2f(pX, pY));
 }

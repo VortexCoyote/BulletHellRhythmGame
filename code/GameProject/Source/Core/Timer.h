@@ -14,10 +14,10 @@ public:
 
 private:
     
-	static float s_lastFrameTime;
-    static float s_frameTime;
+	static float sLastFrameTime;
+    static float sFrameTime;
 
-	static sf::Clock s_timer;
+	static sf::Clock sTimer;
 };
 
 #endif

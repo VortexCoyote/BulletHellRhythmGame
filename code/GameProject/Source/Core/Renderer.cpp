@@ -6,27 +6,27 @@
 
 bool Renderer::Init()
 {
-	mySFMLWindow = Game::GetInstance()->GetGameWindow()->GetRenderWindow();
+	mSFMLWindow = Game::GetInstance()->GetGameWindow()->GetRenderWindow();
 
     return true;
 }
 
 void Renderer::Shutdown()
 {
-	mySFMLWindow = nullptr;
+	mSFMLWindow = nullptr;
 }
 
-void Renderer::Draw(Image* image)
+void Renderer::Draw(Image* pImage)
 {
-	mySFMLWindow->draw(image->GetSprite());
+	mSFMLWindow->draw(pImage->GetSprite());
 }
 
 void Renderer::Prepare()
 {
-	mySFMLWindow->clear();
+	mSFMLWindow->clear();
 }
 
 void Renderer::Render()
 {
-	mySFMLWindow->display();
+	mSFMLWindow->display();
 }

@@ -11,8 +11,8 @@ void InputManager::Init()
 {
     for (int i = 0; i < eTOTAL_SIZE; ++i)
     {
-        myButtons[i].isDown = false;
-        myButtons[i].wasDown = false;
+        mButtons[i].isDown = false;
+        mButtons[i].wasDown = false;
     }
 }
 
@@ -20,31 +20,31 @@ void InputManager::Update()
 {
     for (int i = 0; i < eTOTAL_SIZE; ++i)
     {
-        myButtons[i].wasDown = myButtons[i].isDown;
+        mButtons[i].wasDown = mButtons[i].isDown;
     }
 
 	UpdateButtonStates();
 	UpdateCursorPosition();
 }
 
-bool InputManager::IsButtonDown(Button button)
+bool InputManager::IsButtonDown(Button pButton)
 {
-    if (button >= eTOTAL_SIZE || button < 0)
+    if (pButton >= eTOTAL_SIZE || pButton < 0)
     {
         return false;
     }
 
-    return myButtons[button].isDown;
+    return mButtons[pButton].isDown;
 }
 
-bool InputManager::WasButtonPressed(Button button)
+bool InputManager::WasButtonPressed(Button pButton)
 {
-    if (button >= eTOTAL_SIZE || button < 0)
+    if (pButton >= eTOTAL_SIZE || pButton < 0)
     {
         return false;
     }
 
-    return myButtons[button].isDown && !myButtons[button].wasDown;
+    return mButtons[pButton].isDown && !mButtons[pButton].wasDown;
 }
 
 void InputManager::UpdateButtonStates()
@@ -52,22 +52,22 @@ void InputManager::UpdateButtonStates()
 	if (!Game::GetGameWindow()->GetRenderWindow()->hasFocus())
 		return;
 
-	myButtons[eMoveUp].isDown		= sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-	myButtons[eMoveDown].isDown		= sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-	myButtons[eMoveLeft].isDown		= sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-	myButtons[eMoveRight].isDown	= sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+	mButtons[eMoveUp].isDown		= sf::Keyboard::isKeyPressed(sf::Keyboard::W);
+	mButtons[eMoveDown].isDown		= sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+	mButtons[eMoveLeft].isDown		= sf::Keyboard::isKeyPressed(sf::Keyboard::A);
+	mButtons[eMoveRight].isDown	= sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 
-	myButtons[eFire].isDown			= sf::Mouse::isButtonPressed(sf::Mouse::Left);
+	mButtons[eFire].isDown			= sf::Mouse::isButtonPressed(sf::Mouse::Left);
 }
 
 void InputManager::UpdateCursorPosition()
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*Game::GetGameWindow()->GetRenderWindow());
-    myCursorPos.Set((float)mousePos.x, (float)mousePos.y);
+    mCursorPos.Set((float)mousePos.x, (float)mousePos.y);
 }
 
-void InputManager::GetCursorPosition(float& X, float& Y)
+void InputManager::GetCursorPosition(float& pX, float& pY)
 {
-    X = myCursorPos.x;
-    Y = myCursorPos.y;
+    pX = mCursorPos.x;
+    pY = mCursorPos.y;
 }

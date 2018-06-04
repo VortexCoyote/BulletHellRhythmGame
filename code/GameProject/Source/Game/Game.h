@@ -36,17 +36,17 @@ private:
     bool Init();
     bool Shutdown();
 
-	GameWindow myGameWindow;
-    Renderer myRenderer;
-    EventHandler myEventHandler;
-    InputManager myInputManager;
+	GameWindow mGameWindow;
+    Renderer mRenderer;
+    EventHandler mEventHandler;
+    InputManager mInputManager;
     //CollisionManager myCollisionManager;
 
-    World myWorld;
+    World mWorld;
 
-    bool myRunning;
+    bool mRunning;
 
-    static Game* ourGame;
+    static Game* sGame;
 };
 
 #endif
